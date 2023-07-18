@@ -1,8 +1,8 @@
-require 'socket'
+require "socket"
 
 module Oak
     class IRC
-        def initialize host='irc.libera.chat', port=6667
+        def(initialize host='irc.libera.chat', port=6667)
             @sock = TCPSocket.new host, port
         end
 
@@ -24,15 +24,15 @@ module Oak
             @sock.puts 'PONG'
         end
 
-        def nick nickname
+        def nick(nickname)
             @sock.puts "NICK #{nickname}"
         end
 
-        def user name, realname
+        def user(name, realname)
             @sock.puts "USER #{name} 0 * #{realname}"
         end
 
-        def join chans
+        def join(chans)
             @sock.puts "JOIN #{chans.join ' '}"
         end
 
