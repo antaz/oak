@@ -2,33 +2,35 @@
 
 require "iirc"
 require "oak/gpt"
+require "digest"
+require "oak/throttle"
+require "oak/trunc"
 
 module Oak
   class Oak < IIRC::IRCv3Bot
     include IIRC::AutoJoin
     include IIRC::Verbs
     include IIRC::PrintIO
+    include IIRC::Throttle
+    include IIRC::Truncate
     include IIRC::Ambient
 
-    # last time a message was sent for throttling
-    @@last = Time.now
+    def throttle_ratio
+      1/3r
+    end
 
-    def autojoin_channels; end
+    def autojoin_channels
+      @autojoin_channels ||= []
+    end
 
     def on_privmsg(evt)
       case evt.message
       when /^\.gpt (.*)/
         prompt = ::Regexp.last_match(1)
-        completion = Gpt.completion(evt.nick, prompt).scan(/.{1,400}/).map { |s| s << "\n" }
-        completion.map do |l|
-          sleep 1 while (Time.now - @@last) < 1
-          @@last = Time.now
-          say evt.target, l
-        end
+        say Gpt.completion(evt.nick, prompt)
       when /^\.imagine (.*)/
         prompt = ::Regexp.last_match(1)
-        image = Gpt.image(prompt).scan(/.{1,400}/).map { |s| s << "\n" }.join
-        say evt.target, image
+        say evt.target, Gpt.image(prompt)
       end
     end
   end
