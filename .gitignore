@@ -6,7 +6,6 @@
 /pkg/
 /spec/reports/
 /tmp/
-Dockerfile
 fly.toml
 
 # rspec failure tracking
