@@ -12,7 +12,7 @@ module Oak
     method_option :nick, aliases: "-n", desc: "Network nick"
     method_option :channel, aliases: "-c", desc: "Channel to join"
     def go
-      Oak.run(options[:host], nick: options[:nick])
+      Oak.run(options[:host], nick: options[:nick]) { |bot| bot.autojoin_channels.push(options[:channel]) }
     end
   end
 end
