@@ -6,6 +6,7 @@
 /pkg/
 /spec/reports/
 /tmp/
+config.yml
 fly.toml
 
 # rspec failure tracking
