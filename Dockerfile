@@ -8,4 +8,4 @@ WORKDIR /usr/src/app
 COPY . .
 RUN bundle install
 
-CMD ["./bin/oak", "go", "-h", "irc.libera.chat", "-n", "oak[bot]"]
+CMD ["./bin/oak", "go"]
