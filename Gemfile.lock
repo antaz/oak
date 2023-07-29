@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    oak (0.1.0)
+    oak (1.0.0)
       iirc (~> 0.6.3)
       thor (~> 1.2)
 
