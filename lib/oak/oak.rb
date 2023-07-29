@@ -2,6 +2,7 @@
 
 require "iirc"
 require "oak/gpt"
+require "oak/weather"
 require "digest"
 require "oak/throttle"
 require "oak/trunc"
@@ -15,22 +16,23 @@ module Oak
     include IIRC::Truncate
     include IIRC::Ambient
 
+    include Gpt
+    include Weather
+
     def throttle_ratio
-      1/3r
+      1/2r
     end
 
     def autojoin_channels
       @autojoin_channels ||= []
     end
 
-    def on_privmsg(evt)
+    def on_privmsg evt
       case evt.message
-      when /^\.gpt (.*)/
-        prompt = ::Regexp.last_match(1)
-        say Gpt.completion(evt.nick, prompt)
-      when /^\.imagine (.*)/
-        prompt = ::Regexp.last_match(1)
-        say evt.target, Gpt.image(prompt)
+      when /^\.(help)|(\?)/
+        say "available commands:"
+        say ".gpt [prompt]"
+        say ".weather [city]"
       end
     end
   end
