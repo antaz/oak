@@ -2,17 +2,23 @@
 
 require "thor"
 require "oak/oak"
-require "oak/gpt"
+require "yaml"
 
 module Oak
   # Command line interface
   class CLI < Thor
-    desc "go", "connects to libera server by default"
-    method_option :host, aliases: "-h", desc: "Network host address"
-    method_option :nick, aliases: "-n", desc: "Network nick"
-    method_option :channel, aliases: "-c", desc: "Channel to join"
-    def go
-      Oak.run(options[:host], nick: options[:nick]) { |bot| bot.autojoin_channels.push(options[:channel]) }
+    desc "go [FILE]", "Use config file to configure client"
+    def go(file = "config.yml")
+      config = YAML.load_file(file)
+      config["networks"].map do |network|
+        Oak.run(network["host"], nick: network["nick"]) do |bot|
+          bot.autojoin_channels.concat(network["channels"])
+          at_exit do
+            bot.part(network["channels"].join(","), "Bye! see you later.")
+            bot.quit("Bye! see you later.")
+          end
+        end
+      end
     end
   end
 end
