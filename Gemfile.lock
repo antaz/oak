@@ -2,9 +2,8 @@ PATH
   remote: .
   specs:
     oak (0.1.0)
-      iirc
-      thor
-      uri
+      iirc (~> 0.6.3)
+      thor (~> 1.2)
 
 GEM
   remote: https://rubygems.org/
@@ -69,7 +68,6 @@ GEM
       rubocop-performance (~> 1.18.0)
     thor (1.2.2)
     unicode-display_width (2.4.2)
-    uri (0.12.2)
 
 PLATFORMS
   x86_64-linux
