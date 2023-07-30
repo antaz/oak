@@ -10,6 +10,7 @@ require "oak/trunc"
 module Oak
   class Oak < IIRC::IRCv3Bot
     include IIRC::AutoJoin
+    include IIRC::AcceptInvites
     include IIRC::Verbs
     include IIRC::PrintIO
     include IIRC::Throttle
