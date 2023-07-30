@@ -12,7 +12,7 @@ module Oak
       config = YAML.load_file(file)
       config["networks"].map do |network|
         Oak.run(network["host"], nick: network["nick"]) do |bot|
-          bot.autojoin_channels.concat(network["channels"])
+          bot.autojoin_channels.concat(network["channels"]) if network["channels"]
           at_exit do
             bot.part(network["channels"].join(","), "Bye! see you later.")
             bot.quit("Bye! see you later.")
