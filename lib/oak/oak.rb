@@ -3,6 +3,7 @@
 require "iirc"
 require "oak/gpt"
 require "oak/weather"
+require "oak/wolfram"
 require "digest"
 require "oak/throttle"
 require "oak/trunc"
@@ -19,6 +20,7 @@ module Oak
 
     include Gpt
     include Weather
+    include Wolfram
 
     def throttle_ratio
       1/2r
@@ -34,6 +36,7 @@ module Oak
         say "available commands:"
         say ".gpt [prompt]"
         say ".weather [city]"
+        say ".wolfram [prompt]"
       end
     end
   end
