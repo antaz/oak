@@ -6,6 +6,11 @@ The gem is not available yet in any gem hosting service, so build and install fr
 gem build oak.gemspec
 gem install oak-1.0.0.gem
 ```
+
+## Requirements
+- Ruby 2.6.0 or higher
+- IIRC 0.6.3
+- Thor 1.2
 ## Usage
 Create a config file such as:
 ```
@@ -22,6 +27,7 @@ then launch the bot
 ```
 oak go config.yml
 ```
+![Example chat session](doc/assets/images/example.png)
 ## Development
 To add a module create a file like `lib/oak/greet.rb`
 ```
