@@ -38,7 +38,6 @@ module Oak
       res = Net::HTTP.start(uri.host, use_ssl: true) do |http|
         req = Net::HTTP::Post.new uri, header
         req.body = {model: "gpt-3.5-turbo", messages: context, user: user, max_tokens: 2000, temperature: 0.2}.to_json
-        puts req.body
         http.request req
       end
       case res.code
