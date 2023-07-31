@@ -29,7 +29,7 @@ module Oak
       uri.query = URI.encode_www_form(params)
 
       res = Net::HTTP.get_response(uri)
-      "#{res.body}" if res.code == "200"
+      res.body.to_s if res.code == "200"
     end
   end
 end
