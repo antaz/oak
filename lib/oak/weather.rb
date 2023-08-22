@@ -30,7 +30,7 @@ module Oak
 
       res = Net::HTTP.get_response(uri)
       weather = JSON.parse(res.body)
-      "#{weather["name"]}: #{weather["weather"][0]["description"]}, #{weather["main"]["temp"]} °C, #{weather["main"]["humidity"]}%, #{weather["wind"]["speed"].to_f * 3.6} KpH" if res.code == "200"
+      "#{weather["name"]}: #{weather["weather"][0]["description"]}, #{weather["main"]["temp"]} °C, #{weather["main"]["humidity"]}%, #{(weather["wind"]["speed"].to_f * 3.6).round(2)} KpH" if res.code == "200"
     end
   end
 end
