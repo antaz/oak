@@ -7,6 +7,7 @@ require "oak/wolfram"
 require "digest"
 require "oak/throttle"
 require "oak/trunc"
+require "oak/uptime"
 
 module Oak
   class Oak < IIRC::IRCv3Bot
@@ -21,6 +22,7 @@ module Oak
     include Gpt
     include Weather
     include Wolfram
+    include Uptime
 
     def throttle_ratio
       1/2r
@@ -37,6 +39,7 @@ module Oak
         say ".gpt [prompt]"
         say ".weather [city]"
         say ".wolfram [prompt]"
+        say ".uptime"
       end
     end
   end
