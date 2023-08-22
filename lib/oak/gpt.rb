@@ -25,16 +25,12 @@ module Oak
 
     private
 
-    def context
-      @context ||= []
-    end
-
     def completion(name, user, prompt)
       header = {"Content-Type": "application/json", Authorization: "Bearer #{ENV["OPENAI_TOKEN"]}"}
       name = Digest::MD5.hexdigest name
       user = Digest::MD5.hexdigest user
       uri = URI.parse "#{API}/chat/completions"
-      context.push({role: "user", name: name, content: prompt})
+      context = [{role: "user", name: name, content: prompt}]
       res = Net::HTTP.start(uri.host, use_ssl: true) do |http|
         req = Net::HTTP::Post.new uri, header
         req.body = {model: "gpt-3.5-turbo", messages: context, user: user, max_tokens: 2000, temperature: 0.2}.to_json
@@ -42,10 +38,6 @@ module Oak
       end
       case res.code
       when "200"
-        context.push(JSON.parse(res.body)["choices"][0]["message"])
-        if context.length >= 5
-          context.shift
-        end
         JSON.parse(res.body)["choices"][0]["message"]["content"]
       else
         "Error: #{res.message}"
