@@ -8,6 +8,7 @@ require "digest"
 require "oak/throttle"
 require "oak/trunc"
 require "oak/uptime"
+require "oak/ud"
 
 module Oak
   class Oak < IIRC::IRCv3Bot
@@ -23,6 +24,7 @@ module Oak
     include Weather
     include Wolfram
     include Uptime
+    include UrbanDict
 
     def throttle_ratio
       1/2r
@@ -37,6 +39,7 @@ module Oak
       when /^(\.help)|(\.\?)/
         say "available commands:"
         say ".gpt [prompt]"
+        say ".ud [term]"
         say ".weather [city]"
         say ".wolfram [prompt]"
         say ".uptime"
