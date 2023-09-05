@@ -9,13 +9,6 @@ module Oak
   module Gpt
     API = "https://api.openai.com/v1"
 
-    def context
-      @context ||= [{
-        role: "system",
-        content: "You are a helpful assistant."
-      }]
-    end
-
     def configure_completion
       on :privmsg, :do_completion
     end
@@ -37,10 +30,7 @@ module Oak
       name = Digest::MD5.hexdigest name
       user = Digest::MD5.hexdigest user
       uri = URI.parse "#{API}/chat/completions"
-      context.push({role: "user", name: name, content: prompt})
-      if context.map { |v| v[:content] }.sum(&:length) >= 2900
-        context.shift
-      end
+      context = [{role: "user", name: name, content: prompt}]
       res = Net::HTTP.start(uri.host, use_ssl: true) do |http|
         req = Net::HTTP::Post.new uri, header
         req.body = {model: "gpt-3.5-turbo", messages: context, user: user, max_tokens: 2000, temperature: 0.2}.to_json
@@ -48,9 +38,7 @@ module Oak
       end
       case res.code
       when "200"
-        message = JSON.parse(res.body, symbolize_names: true)[:choices][0][:message]
-        context.push(message)
-        message[:content]
+        JSON.parse(res.body)["choices"][0]["message"]["content"]
       else
         "Error: #{res.message}"
       end
