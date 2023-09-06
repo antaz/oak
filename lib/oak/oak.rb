@@ -10,6 +10,7 @@ require "oak/throttle"
 require "oak/trunc"
 require "oak/uptime"
 require "oak/ud"
+require "oak/lichess"
 require "oak/hash"
 
 module Oak
@@ -28,6 +29,7 @@ module Oak
     include Wolfram
     include Uptime
     include UrbanDict
+    include Lichess
     include Hash
 
     def throttle_ratio
@@ -50,6 +52,8 @@ module Oak
         say ".rot13 <string>"
         say ".md5 <string>"
         say ".sha1 <string>"
+        say ".tv <username>"
+        say ".rating <username>"
       end
     end
   end
