@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "iirc"
+require 'iirc'
 
 module Oak
   module Uptime
@@ -10,7 +10,7 @@ module Oak
       on :privmsg, :do_uptime
     end
 
-    def do_uptime evt
+    def do_uptime(evt)
       case evt.message
       when /^\.uptime/
         say uptime
@@ -25,11 +25,11 @@ module Oak
       hours = mins / 60
       days = hours / 24
 
-      if days > 0
+      if days.positive?
         "#{days} days and #{hours % 24} hours"
-      elsif hours > 0
+      elsif hours.positive?
         "#{hours} hours and #{mins % 60} minutes"
-      elsif mins > 0
+      elsif mins.positive?
         "#{mins} minutes and #{secs % 60} seconds"
       elsif secs >= 0
         "#{secs} seconds"

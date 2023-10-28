@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
-require "iirc"
-require "oak/gpt"
-require "oak/weather"
-require "oak/wolfram"
-require "digest"
-require "oak/threaded"
-require "oak/throttle"
-require "oak/trunc"
-require "oak/uptime"
-require "oak/ud"
-require "oak/lichess"
-require "oak/hash"
+require 'iirc'
+require 'oak/gpt'
+require 'oak/weather'
+require 'oak/wolfram'
+require 'digest'
+require 'oak/threaded'
+require 'oak/throttle'
+require 'oak/trunc'
+require 'oak/uptime'
+require 'oak/ud'
+require 'oak/lichess'
+require 'oak/hash'
+require 'oak/resolve'
 
 module Oak
   class Oak < IIRC::IRCv3Bot
@@ -31,6 +32,7 @@ module Oak
     include UrbanDict
     include Lichess
     include Hash
+    include Resolve
 
     def throttle_ratio
       1/2r
@@ -40,20 +42,20 @@ module Oak
       @autojoin_channels ||= []
     end
 
-    def on_privmsg evt
+    def on_privmsg(evt)
       case evt.message
       when /^(\.help)|(\.\?)/
-        say "available commands:"
-        say ".gpt <prompt>"
-        say ".ud <term>"
-        say ".weather <city>"
-        say ".wolfram <prompt>"
-        say ".uptime"
-        say ".rot13 <string>"
-        say ".md5 <string>"
-        say ".sha1 <string>"
-        say ".tv <username>"
-        say ".rating <username>"
+        say 'available commands:'
+        say '.gpt <prompt>'
+        say '.ud <term>'
+        say '.weather <city>'
+        say '.wolfram <prompt>'
+        say '.uptime'
+        say '.rot13 <string>'
+        say '.md5 <string>'
+        say '.sha1 <string>'
+        say '.tv <username>'
+        say '.rating <username>'
       end
     end
   end

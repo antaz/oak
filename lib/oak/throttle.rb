@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module IIRC
   module Throttle
     def throttle_ratio
@@ -9,7 +11,7 @@ module IIRC
         super
         sleep throttle_ratio
       end
-      alias_method :say, :msg
+      alias say msg
     end
 
     include Verbs

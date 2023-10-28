@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "oak/version"
+require_relative 'oak/version'
 
 module Oak
   class Error < StandardError; end
