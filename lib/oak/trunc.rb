@@ -8,7 +8,7 @@ module IIRC
           super(target, line)
         end
       end
-      alias say msg
+      alias_method :say, :msg
     end
 
     include Verbs

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'net/http'
-require 'open-uri'
-require 'uri'
-require 'iirc'
+require "net/http"
+require "open-uri"
+require "uri"
+require "iirc"
 
 module Oak
   # Resolve URL and get title
@@ -21,7 +21,7 @@ module Oak
     private
 
     def resolve(url)
-      "\"#{URI.open(url).read.scan(%r{<title>(.*?)</title>})[0][0]}\""
+      "\"#{URI.parse(url).open.read.scan(%r{<title>(.*?)</title>})[0][0]}\""
     end
   end
 end

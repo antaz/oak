@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require 'iirc'
-require 'json'
+require "iirc"
+require "json"
 
 module Oak
   module Lichess
-    API = 'https://lichess.org/api'
+    API = "https://lichess.org/api"
 
     def configure_lichess
       on :privmsg, :do_lichess
@@ -23,7 +23,7 @@ module Oak
     def tv(username)
       uri = URI("#{API}/user/#{username}")
       res = Net::HTTP.get_response(uri)
-      if res.code == '200'
+      if res.code == "200"
         data = JSON.parse(res.body, symbolize_names: true)
         "#{data[:url]}/tv"
       else
@@ -34,7 +34,7 @@ module Oak
     def rating(username)
       uri = URI("#{API}/user/#{username}")
       res = Net::HTTP.get_response(uri)
-      if res.code == '200'
+      if res.code == "200"
         data = JSON.parse(res.body, symbolize_names: true)
         "#{data[:username]}: [rapid: #{data[:perfs][:rapid][:rating]}, blitz: #{data[:perfs][:blitz][:rating]}, bullet: #{data[:perfs][:bullet][:rating]}]"
       else

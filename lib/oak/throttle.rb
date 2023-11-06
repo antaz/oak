@@ -11,7 +11,7 @@ module IIRC
         super
         sleep throttle_ratio
       end
-      alias say msg
+      alias_method :say, :msg
     end
 
     include Verbs

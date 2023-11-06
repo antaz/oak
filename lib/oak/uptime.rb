@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'iirc'
+require "iirc"
 
 module Oak
   module Uptime

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'iirc'
-require 'digest'
+require "iirc"
+require "digest"
 
 module Oak
   module Hash
@@ -16,7 +16,7 @@ module Oak
       when /^\.md5 (.*)/
         say Digest::MD5.hexdigest ::Regexp.last_match(1)
       when /^\.rot13 (.*)/
-        say ::Regexp.last_match(1).tr('A-Za-z', 'N-ZA-Mn-za-m')
+        say ::Regexp.last_match(1).tr("A-Za-z", "N-ZA-Mn-za-m")
       end
     end
   end
