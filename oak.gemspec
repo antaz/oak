@@ -20,4 +20,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rss"
   spec.add_dependency "thor", "~> 1.2"
   spec.add_dependency "wikipedia-client"
+  spec.add_dependency "ruby-openai"
+  spec.add_dependency "open-weather-ruby-client"
 end

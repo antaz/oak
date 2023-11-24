@@ -1,23 +1,24 @@
 # frozen_string_literal: true
 
+require "openai"
+require "iirc"
 require "net/http"
 require "json"
-require "iirc"
 
 module Oak
   # ChatGPT API
   module Gpt
-    API = "https://api.openai.com/v1"
+    CLIENT = OpenAI::Client.new(access_token: ENV["OPENAI_TOKEN"])
 
-    def configure_completion
-      on :privmsg, :do_completion
+    def configure_gpt
+      on :privmsg, :do_gpt
     end
 
-    def do_completion(evt)
+    def do_gpt(evt)
       case evt.message
       when /^\.gpt (.*)/
         prompt = ::Regexp.last_match(1)
-        say completion evt.nick, evt.target, prompt
+        say chat prompt
       when /^\.gpt/
         say ".gpt [prompt]"
       end
@@ -25,23 +26,15 @@ module Oak
 
     private
 
-    def completion(name, user, prompt)
-      header = {"Content-Type": "application/json", Authorization: "Bearer #{ENV["OPENAI_TOKEN"]}"}
-      name = Digest::MD5.hexdigest name
-      user = Digest::MD5.hexdigest user
-      uri = URI.parse "#{API}/chat/completions"
-      context = [{role: "user", name: name, content: prompt}]
-      res = Net::HTTP.start(uri.host, use_ssl: true) do |http|
-        req = Net::HTTP::Post.new uri, header
-        req.body = {model: "gpt-3.5-turbo", messages: context, user: user, max_tokens: 2000, temperature: 0.2}.to_json
-        http.request req
-      end
-      case res.code
-      when "200"
-        JSON.parse(res.body)["choices"][0]["message"]["content"]
-      else
-        "Error: #{res.message}"
-      end
+    def chat(prompt)
+      response = CLIENT.chat(
+        parameters: {
+          model: "gpt-3.5-turbo",
+          messages: [{role: "user", content: prompt}],
+          temperature: 0.7
+        }
+      )
+      response.dig("choices", 0, "message", "content")
     end
   end
 end

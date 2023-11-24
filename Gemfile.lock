@@ -4,25 +4,62 @@ PATH
     oak (1.0.0)
       iirc (~> 0.6.3)
       nokogiri
+      open-weather-ruby-client
       rss
+      ruby-openai
       thor (~> 1.2)
       wikipedia-client
 
 GEM
   remote: https://rubygems.org/
   specs:
+    activesupport (7.1.2)
+      base64
+      bigdecimal
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      connection_pool (>= 2.2.5)
+      drb
+      i18n (>= 1.6, < 2)
+      minitest (>= 5.1)
+      mutex_m
+      tzinfo (~> 2.0)
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
+    base64 (0.2.0)
+    bigdecimal (3.1.4)
+    concurrent-ruby (1.2.2)
+    connection_pool (2.4.1)
     diff-lcs (1.5.0)
+    drb (2.2.0)
+      ruby2_keywords
+    event_stream_parser (0.3.0)
+    faraday (2.7.11)
+      base64
+      faraday-net_http (>= 2.0, < 3.1)
+      ruby2_keywords (>= 0.0.4)
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
+    faraday-net_http (3.0.2)
+    hashie (5.0.0)
+    i18n (1.14.1)
+      concurrent-ruby (~> 1.0)
     iirc (0.6.3)
       ircparser (= 1.0.0)
     ircparser (1.0.0)
     json (2.6.3)
     language_server-protocol (3.17.0.3)
     lint_roller (1.1.0)
+    minitest (5.20.0)
+    multipart-post (2.3.0)
+    mutex_m (0.2.0)
     nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
+    open-weather-ruby-client (0.4.0)
+      activesupport
+      faraday (>= 2.0.1)
+      faraday-multipart
+      hashie
     parallel (1.23.0)
     parser (3.2.2.3)
       ast (~> 2.4.1)
@@ -63,7 +100,12 @@ GEM
     rubocop-performance (1.18.0)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
+    ruby-openai (6.2.0)
+      event_stream_parser (>= 0.3.0, < 1.0.0)
+      faraday (>= 1)
+      faraday-multipart (>= 1)
     ruby-progressbar (1.13.0)
+    ruby2_keywords (0.0.5)
     standard (1.30.1)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.0)
@@ -77,6 +119,8 @@ GEM
       lint_roller (~> 1.1)
       rubocop-performance (~> 1.18.0)
     thor (1.2.2)
+    tzinfo (2.0.6)
+      concurrent-ruby (~> 1.0)
     unicode-display_width (2.4.2)
     wikipedia-client (1.17.0)
       addressable (~> 2.7)

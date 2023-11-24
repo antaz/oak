@@ -3,10 +3,13 @@
 require "iirc"
 require "net/http"
 require "json"
+require "open-weather-ruby-client"
 
 module Oak
   module Weather
-    API = "http://api.openweathermap.org/data/2.5/weather"
+    CLIENT = OpenWeather::Client.new(
+      api_key: ENV["OWM_TOKEN"]
+    )
 
     def configure_weather
       on :privmsg, :do_weather
@@ -23,16 +26,9 @@ module Oak
 
     private
 
-    def weather(query)
-      uri = URI(API)
-      params = {q: query, units: "metric", APPID: ENV["OWM_TOKEN"]}
-      uri.query = URI.encode_www_form(params)
-
-      res = Net::HTTP.get_response(uri)
-      weather = JSON.parse(res.body)
-      return unless res.code == "200"
-
-      "#{weather["name"]}: #{weather["weather"][0]["description"]}, #{weather["main"]["temp"]} °C, #{weather["main"]["humidity"]}%, #{(weather["wind"]["speed"].to_f * 3.6).round(2)} KpH"
+    def weather(location)
+      data = CLIENT.current_weather(city: location, units: "metric")
+      "#{data.name}: #{data.weather[0].description}, #{data.main.temp} °C, #{data.main.humidity}%, #{data.wind.speed_mph} mph"
     end
   end
 end
