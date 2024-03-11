@@ -21,7 +21,7 @@ module Oak
 
     def resolve(url)
       URI.parse(url).open do |f|
-        doc = Nokogiri::HTML(f)
+        doc = Nokogiri::HTML(f, nil, Encoding::UTF_8.to_s)
         title = doc.at_css("title").text
         return title
       end
