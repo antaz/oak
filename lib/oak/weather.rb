@@ -28,7 +28,7 @@ module Oak
 
     def weather(location)
       data = CLIENT.current_weather(city: location, units: "metric")
-      "#{data.name}: #{data.weather[0].description}, #{data.main.temp} °C, #{data.main.humidity}%, #{data.wind.speed_mph} mph"
+      "#{data.name}: #{data.weather[0].description}, #{data.main.temp} °C, #{data.main.humidity}%, #{data.wind.speed_mps} MpS"
     end
   end
 end
