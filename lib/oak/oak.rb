@@ -50,7 +50,7 @@ module Oak
 
     def on_privmsg(evt)
       case evt.message
-      when /^(\.help)|(\.\?)/
+      when /^(\.help)|^(\.\?)/
         say "available commands:"
         say ".gpt <prompt>"
         say ".ud <term>"
