@@ -53,7 +53,7 @@ GEM
     minitest (5.20.0)
     multipart-post (2.3.0)
     mutex_m (0.2.0)
-    nokogiri (1.15.4-x86_64-linux)
+    nokogiri (1.16.3-x86_64-linux)
       racc (~> 1.4)
     open-weather-ruby-client (0.4.0)
       activesupport

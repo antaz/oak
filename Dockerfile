@@ -1,4 +1,4 @@
-FROM ruby:3.0-alpine
+FROM ruby:3.3-alpine
 RUN apk add --no-cache build-base ruby-dev
 
 RUN gem install bundler
