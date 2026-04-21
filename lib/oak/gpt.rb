@@ -19,11 +19,11 @@ module Oak
 
     def do_gpt(evt)
       case evt.message
-      when /^\.gpt (.*)/
+      when /^\.chat (.*)/
         prompt = ::Regexp.last_match(1)
         say chat prompt
-      when /^\.gpt/
-        say ".gpt [prompt]"
+      when /^\.chat/
+        say ".chat [prompt]"
       end
     end
 
