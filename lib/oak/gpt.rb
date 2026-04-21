@@ -8,7 +8,10 @@ require "json"
 module Oak
   # ChatGPT API
   module Gpt
-    CLIENT = OpenAI::Client.new(access_token: ENV["OPENAI_TOKEN"])
+    CLIENT = OpenAI::Client.new(
+      access_token: ENV["OPENROUTER_API_KEY"],
+      uri_base: "https://openrouter.ai/api"
+    )
 
     def configure_gpt
       on :privmsg, :do_gpt
@@ -29,7 +32,7 @@ module Oak
     def chat(prompt)
       response = CLIENT.chat(
         parameters: {
-          model: "gpt-3.5-turbo",
+          model: ENV.fetch("OPENROUTER_MODEL", "openrouter/free"),
           messages: [{role: "user", content: prompt}],
           temperature: 0.7
         }
