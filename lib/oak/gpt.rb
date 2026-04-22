@@ -32,13 +32,13 @@ module Oak
     def chat(prompt)
       response = CLIENT.chat(
         parameters: {
-          model: "inclusionai/ling-2.6-flash:free",
+          model: "google/gemma-4-31b-it:free",
           messages: [{role: "system", content: "You are chatting in IRC. Be concise and casual. No markdown, no formatting, no bullet points. Plain text only. Keep responses short."}, {role: "user", content: prompt}],
           temperature: 0.7
         }
       )
       response.dig("choices", 0, "message", "content")
-    rescue Faraday::TooManyRequestsError
+    rescue Faraday::ClientError
       "rate limited, try again later"
     end
   end
