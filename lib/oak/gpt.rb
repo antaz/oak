@@ -32,7 +32,7 @@ module Oak
     def chat(prompt)
       response = CLIENT.chat(
         parameters: {
-          model: "google/gemma-4-31b-it:free",
+          model: "minimax/minimax-m2.5:free",
           messages: [{role: "system", content: "You are chatting in IRC. Be concise and casual. No markdown, no formatting, no bullet points. Plain text only. Keep responses short."}, {role: "user", content: prompt}],
           temperature: 0.7
         }
