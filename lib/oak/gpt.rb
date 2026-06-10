@@ -10,7 +10,7 @@ module Oak
   module Gpt
     CLIENT = OpenAI::Client.new(
       access_token: ENV["OPENROUTER_API_KEY"],
-      uri_base: "https://openrouter.ai/api"
+      uri_base: "https://openrouter.ai/api/v1"
     )
 
     def configure_gpt
