@@ -50,6 +50,8 @@ GEM
     json (2.6.3)
     language_server-protocol (3.17.0.3)
     lint_roller (1.1.0)
+    llm.rb (11.2.0)
+    logger (1.7.0)
     minitest (5.20.0)
     multipart-post (2.3.0)
     mutex_m (0.2.0)
@@ -64,10 +66,15 @@ GEM
     parser (3.3.11.1)
       ast (~> 2.4.1)
       racc
+    prism (1.9.0)
     public_suffix (5.0.3)
     racc (1.8.1)
     rainbow (3.1.1)
     rake (13.0.6)
+    rbs (4.0.3)
+      logger
+      prism (>= 1.6.0)
+      tsort
     regexp_parser (2.8.1)
     rexml (3.2.6)
     rspec (3.12.0)
@@ -100,6 +107,10 @@ GEM
     rubocop-performance (1.18.0)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
+    ruby-lsp (0.26.9)
+      language_server-protocol (~> 3.17.0)
+      prism (>= 1.2, < 2.0)
+      rbs (>= 3, < 5)
     ruby-openai (6.2.0)
       event_stream_parser (>= 0.3.0, < 1.0.0)
       faraday (>= 1)
@@ -119,6 +130,7 @@ GEM
       lint_roller (~> 1.1)
       rubocop-performance (~> 1.18.0)
     thor (1.2.2)
+    tsort (0.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.4.2)
@@ -129,10 +141,12 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  llm.rb (~> 11.2)
   oak!
   parser
   rake (~> 13.0)
   rspec (~> 3.0)
+  ruby-lsp
   standard
 
 BUNDLED WITH
