@@ -3,12 +3,11 @@
 require "iirc"
 require "net/http"
 require "json"
-require "llm"
+require "net/http"
 
 module Oak
   module Gpt
-    llm = LLM.openai(key: ENV["OPENROUTER_API_KEY"], host: "openrouter.ai", base_path: "api/v1")
-    AGENT = LLM::Agent.new(llm, stream: $stdout, model: "openrouter/free")
+    CLIENT = URI("https://openrouter.ai/api/v1/chat/completions")
 
     def configure_gpt
       on :privmsg, :do_gpt
@@ -27,10 +26,20 @@ module Oak
     private
 
     def chat(prompt)
-      res = AGENT.ask prompt
-      res.content
-    rescue Faraday::ClientError
-      "rate limited, try again later"
+      res = Net::HTTP.post(
+        CLIENT,
+        {
+          model: "openrouter/free",
+          messages: [
+            { role: "system", content: "You're inside IRC as an assistant, be brief!" },
+            { role: "user", content: prompt }]
+        }.to_json,
+        {
+          "Content-Type" => "application/json",
+          "Authorization" => "Bearer #{ENV["OPENROUTER_API_KEY"]}"
+        }
+      )
+      JSON.parse(res.body).dig("choices", 0, "message", "content")
     end
   end
 end

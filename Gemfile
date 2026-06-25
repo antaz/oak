@@ -13,6 +13,4 @@ gem "parser"
 
 gem "standard", group: %i[development test]
 
-gem "llm.rb", "~> 11.2"
-
 gem "ruby-lsp", require: false
